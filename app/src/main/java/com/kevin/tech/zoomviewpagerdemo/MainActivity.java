@@ -1,5 +1,6 @@
 package com.kevin.tech.zoomviewpagerdemo;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -7,6 +8,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
@@ -17,7 +19,7 @@ import com.kevin.tech.zoomviewpagerdemo.fragment.ShortFragment;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements ViewPagerCompat.OnPageChangeListener {
+public class MainActivity extends AppCompatActivity implements ViewPagerCompat.OnPageChangeListener, View.OnClickListener {
     private int[] mImgs = new int[]{R.drawable.ball_red, R.drawable.ball_blue, R.drawable.ball_green};
     private List<Fragment> mFragments = new ArrayList<Fragment>();
     private RelativeLayout mPagerContainer;
@@ -36,6 +38,8 @@ public class MainActivity extends AppCompatActivity implements ViewPagerCompat.O
     private ShortFragment mShortFragment;
     private LongFragment mLongFragment;
 
+    private Button mBtnNext;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +48,8 @@ public class MainActivity extends AppCompatActivity implements ViewPagerCompat.O
 
         mPagerContainer = (RelativeLayout) findViewById(R.id.pager_layout);
         mViewPager = (ViewPagerCompat) findViewById(R.id.viewpager);
+        mBtnNext = (Button) findViewById(R.id.btn_next);
+        mBtnNext.setOnClickListener(this);
         locationOne = new int[2];
         locationTwo = new int[2];
         mViewPager.setPageTransformer(true, new ZoomOutPageTransformer());
@@ -92,6 +98,11 @@ public class MainActivity extends AppCompatActivity implements ViewPagerCompat.O
     @Override
     public void onPageScrollStateChanged(int state) {
 
+    }
+
+    @Override
+    public void onClick(View view) {
+        startActivity(new Intent(MainActivity.this,NextActivity.class));
     }
 
 
